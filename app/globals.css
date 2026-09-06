@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────── */
+@theme {
+  /* Blanco y negro puro, sin acento. */
+  --color-paper: #ffffff;
+  --color-ink: #0a0a0a;
+
+  /* Tipografía */
+  --font-display: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular",
+    monospace;
+
+  /* Easing compartido con lib/animations.ts */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Escala de titulares fluida */
+  --text-display: clamp(3.5rem, 13vw, 15rem);
+  --text-display--line-height: 0.85;
+  --text-display--letter-spacing: -0.04em;
+
+  --text-headline: clamp(2.25rem, 6vw, 5.5rem);
+  --text-headline--line-height: 0.95;
+  --text-headline--letter-spacing: -0.03em;
+
+  --text-lede: clamp(1.25rem, 2.2vw, 2rem);
+  --text-lede--line-height: 1.35;
+  --text-lede--letter-spacing: -0.015em;
+
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.16em;
+}
+
+/* ── Base ──────────────────────────────────────────────────────── */
+@layer base {
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .invert-section ::selection {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-display);
+    overflow-x: clip;
+  }
+
+  /* El cursor propio reemplaza al del sistema en punteros finos. */
+  @media (hover: hover) and (pointer: fine) {
+    body,
+    a,
+    button,
+    [role="button"] {
+      cursor: none;
+    }
+  }
+}
+
+@layer utilities {
+  /* Contenedor y gutters del sitio */
+  .shell {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 100rem;
+    padding-inline: clamp(1.25rem, 5vw, 6rem);
+  }
+
+  /* Regla hairline que respeta la sección invertida */
+  .hairline {
+    border-color: color-mix(in srgb, currentColor 14%, transparent);
+  }
+
+  .glass {
+    background: color-mix(in srgb, var(--color-paper) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+
+  .invert-section .glass {
+    background: color-mix(in srgb, var(--color-ink) 60%, transparent);
+  }
+
+  /* Máscara para reveals línea a línea */
+  .mask-line {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.06em;
+    margin-block: -0.06em;
+  }
+}
+
+/* ── Lenis ─────────────────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ── Accesibilidad ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
