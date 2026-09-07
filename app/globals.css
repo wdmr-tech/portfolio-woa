@@ -99,6 +99,20 @@
       inset 0 1px 0 0 color-mix(in srgb, var(--color-paper) 14%, transparent);
   }
 
+  /* En móvil la navbar conserva el fondo glass aunque no esté condensada, para
+     que se lea sobre el hero. En sm+ vuelve a ser transparente arriba del todo. */
+  @media (max-width: 39.99rem) {
+    .nav-bar {
+      background-color: color-mix(in srgb, var(--color-paper) 62%, transparent);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border-color: color-mix(in srgb, var(--color-ink) 8%, transparent);
+      box-shadow:
+        0 10px 34px -14px color-mix(in srgb, var(--color-ink) 24%, transparent),
+        inset 0 1px 0 0 color-mix(in srgb, var(--color-paper) 55%, transparent);
+    }
+  }
+
   /* Máscara para reveals línea a línea */
   .mask-line {
     display: block;

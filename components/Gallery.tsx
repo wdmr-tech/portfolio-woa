@@ -90,7 +90,9 @@ export default function Gallery({ images, title }: GalleryProps) {
   );
 }
 
-/* ── Miniatura con parallax al puntero ─────────────────────────── */
+/* ── Miniatura con leve inclinación 3D al puntero ──────────────── */
+
+const TILT_SPRING = { stiffness: 150, damping: 15, mass: 0.35 };
 
 function GalleryThumb({
   src,
@@ -108,20 +110,30 @@ function GalleryThumb({
   onOpen: () => void;
 }) {
   const { t } = useLang();
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 140, damping: 18, mass: 0.4 });
-  const y = useSpring(my, { stiffness: 140, damping: 18, mass: 0.4 });
+  const rotX = useMotionValue(0);
+  const rotY = useMotionValue(0);
+  const shiftX = useMotionValue(0);
+  const shiftY = useMotionValue(0);
+  const rotateX = useSpring(rotX, TILT_SPRING);
+  const rotateY = useSpring(rotY, TILT_SPRING);
+  const x = useSpring(shiftX, TILT_SPRING);
+  const y = useSpring(shiftY, TILT_SPRING);
 
   const handleMove = (event: React.MouseEvent<HTMLButtonElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    mx.set(((event.clientX - rect.left) / rect.width - 0.5) * 18);
-    my.set(((event.clientY - rect.top) / rect.height - 0.5) * 18);
+    const px = (event.clientX - rect.left) / rect.width - 0.5; // -0.5 … 0.5
+    const py = (event.clientY - rect.top) / rect.height - 0.5;
+    rotY.set(px * 9); // gira sobre el eje vertical
+    rotX.set(py * -9); // y sobre el horizontal
+    shiftX.set(px * 10);
+    shiftY.set(py * 10);
   };
 
   const reset = () => {
-    mx.set(0);
-    my.set(0);
+    rotX.set(0);
+    rotY.set(0);
+    shiftX.set(0);
+    shiftY.set(0);
   };
 
   return (
@@ -132,14 +144,12 @@ function GalleryThumb({
       onMouseLeave={reset}
       data-cursor
       data-cursor-label={t.lightbox.enlarge}
+      style={{ perspective: 900 }}
       className="group relative block aspect-4/3 w-full overflow-hidden bg-ink"
     >
       <motion.div
-        className="absolute inset-[-7%]"
-        style={{ x, y }}
-        initial={false}
-        whileHover={{ scale: 1.06 }}
-        transition={{ duration: 1.1, ease: easeOutExpo }}
+        className="absolute inset-[-9%]"
+        style={{ rotateX, rotateY, x, y, transformStyle: "preserve-3d" }}
       >
         <ProjectCover src={src} alt={alt} title={title} />
       </motion.div>

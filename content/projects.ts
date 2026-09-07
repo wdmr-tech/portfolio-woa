@@ -31,6 +31,7 @@ export const projects: Project[] = [
       "/images/projects/foedus/foedus_01.webp",
       "/images/projects/foedus/foedus_02.webp",
       "/images/projects/foedus/foedus_03.webp",
+      "/images/projects/foedus/foedus_04.webp",
     ],
     overview: [
       "Foedus es un RPG ambientado en un mundo oscuro y lleno de secretos, donde tomas el rol de un personaje misterioso. El proyecto explora un tono sombrío y una progresión guiada por decisiones, con sistemas de combate y exploración construidos en Unity.",
@@ -57,6 +58,8 @@ export const projects: Project[] = [
     gallery: [
       "/images/projects/project-island/island_01.webp",
       "/images/projects/project-island/island_02.webp",
+      "/images/projects/project-island/island_03.webp",
+      "/images/projects/project-island/island_04.webp",
     ],
     overview: [
       "Project Island es una aventura gráfica narrativa en vista isométrica. El jugador investiga una misteriosa isla en una historia que fusiona suspenso, horror y comedia, apoyándose en diálogo, exploración y resolución de puzzles.",

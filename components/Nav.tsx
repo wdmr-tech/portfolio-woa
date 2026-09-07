@@ -38,8 +38,8 @@ export default function Nav() {
     >
       <nav className="shell flex justify-center pt-4 sm:pt-6">
         <div
-          className={`flex w-full items-center justify-center gap-4 rounded-full px-5 py-4 transition-[background-color,box-shadow,backdrop-filter,border-color] duration-500 sm:justify-between sm:gap-6 sm:px-8 sm:py-[1.15rem] ${
-            condensed ? "glass text-ink" : "border border-transparent bg-transparent"
+          className={`nav-bar flex w-full items-center justify-center gap-4 rounded-full border border-transparent px-5 py-4 transition-[background-color,box-shadow,backdrop-filter,border-color] duration-500 sm:justify-between sm:gap-6 sm:px-8 sm:py-[1.15rem] ${
+            condensed ? "glass text-ink" : "sm:bg-transparent"
           }`}
         >
           <Link

@@ -23,14 +23,17 @@ export default function Hero() {
     <section
       ref={ref}
       id="inicio"
-      className="relative flex min-h-svh flex-col justify-between overflow-hidden pt-28 pb-8 sm:pt-32"
+      className="relative flex min-h-svh flex-col justify-between overflow-hidden pt-24 pb-8 sm:pt-32"
     >
-      <motion.div style={{ y, opacity }} className="shell flex flex-1 flex-col justify-between">
+      <motion.div
+        style={{ y, opacity }}
+        className="shell flex flex-1 flex-col justify-start sm:justify-between"
+      >
         <motion.div
           variants={stagger(0.1, 0.15)}
           initial="hidden"
           animate="show"
-          className="flex flex-col gap-16"
+          className="flex flex-col gap-8 sm:gap-16"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 font-mono text-label uppercase">
             <span className="mask-line">
@@ -45,7 +48,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="text-display font-medium">
+          <h1 className="font-medium tracking-[-0.04em] leading-[0.85] text-[clamp(4rem,18vw,5.25rem)] sm:text-display">
             {NAME_LINES.map((line) => (
               <span className="mask-line" key={line}>
                 <motion.span variants={maskUp} className="block">
@@ -56,7 +59,7 @@ export default function Hero() {
           </h1>
         </motion.div>
 
-        <div className="mt-16 grid gap-10 md:grid-cols-12 md:items-end">
+        <div className="mt-12 grid gap-10 sm:mt-16 md:grid-cols-12 md:items-end">
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
