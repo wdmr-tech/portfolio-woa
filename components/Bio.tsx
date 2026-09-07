@@ -33,8 +33,8 @@ export default function Bio() {
           </Reveal>
           <MaskText
             as="h2"
-            className="text-headline mt-8 font-medium"
-            lines={["Producción de videojuegos", "y desarrollo de UI"]}
+            className="mt-8 font-medium leading-[0.95] tracking-[-0.03em] text-[clamp(2.25rem,5.5vw,4.5rem)]"
+            lines={["Producción", "y UI"]}
             delay={0.05}
           />
         </div>
