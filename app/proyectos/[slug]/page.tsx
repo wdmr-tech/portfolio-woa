@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
+import Gallery from "@/components/Gallery";
 import ProjectCover from "@/components/ProjectCover";
 import { MaskText, Reveal, RevealGroup } from "@/components/Reveal";
 import { getAdjacentProject, getProject, projects } from "@/content/projects";
@@ -166,19 +167,7 @@ export default async function ProjectPage({
             <Reveal className="font-mono text-label uppercase opacity-60">
               Galería
             </Reveal>
-            <div className="mt-10 grid gap-6 sm:grid-cols-2">
-              {project.gallery.map((image, imageIndex) => (
-                <Reveal key={image} delay={(imageIndex % 2) * 0.08}>
-                  <div className="relative aspect-4/3 w-full overflow-hidden bg-ink">
-                    <ProjectCover
-                      src={image}
-                      alt={`${project.title} — imagen ${imageIndex + 1}`}
-                      title={project.title}
-                    />
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+            <Gallery images={project.gallery} title={project.title} />
           </section>
         )}
 
