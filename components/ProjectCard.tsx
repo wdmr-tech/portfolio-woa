@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import ProjectCover from "@/components/ProjectCover";
 import { easeOutExpo, viewportOnce } from "@/lib/animations";
+import { useLang } from "@/lib/i18n";
 import type { Project } from "@/content/projects";
 
 export default function ProjectCard({
@@ -14,6 +15,7 @@ export default function ProjectCard({
   project: Project;
   index: number;
 }) {
+  const { t } = useLang();
   const number = String(index + 1).padStart(2, "0");
 
   return (
@@ -27,7 +29,7 @@ export default function ProjectCard({
       <Link
         href={`/proyectos/${project.slug}`}
         data-cursor
-        data-cursor-label="Ver"
+        data-cursor-label={t.card.viewLabel}
         className="group block"
       >
         <div className="relative aspect-4/3 w-full overflow-hidden bg-ink">
@@ -50,7 +52,7 @@ export default function ProjectCard({
             <div className="glass flex w-full items-center justify-between rounded-full px-5 py-3 font-mono text-label text-ink uppercase">
               <span>{project.engine}</span>
               <span className="translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
-                Ver proyecto →
+                {t.card.view} →
               </span>
             </div>
           </div>

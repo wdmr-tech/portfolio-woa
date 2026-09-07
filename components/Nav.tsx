@@ -6,12 +6,20 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { easeOutExpo } from "@/lib/animations";
-import { nav, site } from "@/lib/site";
+import { useLang } from "@/lib/i18n";
+import { site } from "@/lib/site";
+
+const NAV_ITEMS = [
+  { key: "bio", href: "#bio" },
+  { key: "projects", href: "#proyectos" },
+  { key: "contact", href: "#contacto" },
+] as const;
 
 export default function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const { scrollY } = useScroll();
+  const { t } = useLang();
   const [condensed, setCondensed] = useState(false);
   const [hidden, setHidden] = useState(false);
 
@@ -36,33 +44,71 @@ export default function Nav() {
         >
           <Link
             href="/"
-            className="hidden shrink-0 font-mono text-label tracking-[0.16em] whitespace-nowrap uppercase mix-blend-difference text-white sm:block"
+            className="hidden shrink-0 font-mono text-label tracking-[0.16em] whitespace-nowrap text-white uppercase mix-blend-difference sm:block"
             data-cursor
           >
             {site.name}
           </Link>
 
-          <ul className="flex items-center gap-5 sm:gap-8">
-            {isHome ? (
-              nav.map((item) => (
-                <li key={item.href}>
-                  <NavLink href={item.href}>{item.label}</NavLink>
-                </li>
-              ))
-            ) : (
-              <>
-                <li className="hidden sm:block">
-                  <NavLink href="/#proyectos">Proyectos</NavLink>
-                </li>
-                <li>
-                  <NavLink href="/">Volver al inicio</NavLink>
-                </li>
-              </>
-            )}
-          </ul>
+          <div className="flex items-center gap-5 sm:gap-8">
+            <ul className="flex items-center gap-5 sm:gap-8">
+              {isHome ? (
+                NAV_ITEMS.map((item) => (
+                  <li key={item.href}>
+                    <NavLink href={item.href}>{t.nav[item.key]}</NavLink>
+                  </li>
+                ))
+              ) : (
+                <>
+                  <li className="hidden sm:block">
+                    <NavLink href="/#proyectos">{t.nav.projects}</NavLink>
+                  </li>
+                  <li>
+                    <NavLink href="/">{t.nav.back}</NavLink>
+                  </li>
+                </>
+              )}
+            </ul>
+
+            <LangSwitch />
+          </div>
         </div>
       </nav>
     </motion.header>
+  );
+}
+
+function LangSwitch() {
+  const { lang, setLang, t } = useLang();
+
+  return (
+    <div
+      className="flex items-center gap-1.5 font-mono text-label text-white uppercase mix-blend-difference"
+      role="group"
+      aria-label={t.langSwitch.label}
+    >
+      {(["es", "en"] as const).map((code, index) => (
+        <span key={code} className="flex items-center gap-1.5">
+          {index === 1 && <span className="opacity-30">/</span>}
+          <button
+            type="button"
+            onClick={() => setLang(code)}
+            data-cursor
+            aria-pressed={lang === code}
+            className={`relative transition-opacity duration-300 ${
+              lang === code ? "opacity-100" : "opacity-40 hover:opacity-70"
+            }`}
+          >
+            {t.langSwitch[code]}
+            <span
+              className={`absolute -bottom-1 left-0 h-px w-full origin-left bg-current transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                lang === code ? "scale-x-100" : "scale-x-0"
+              }`}
+            />
+          </button>
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -71,7 +117,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
     <Link
       href={href}
       data-cursor
-      className="group relative block font-mono text-label tracking-[0.16em] uppercase mix-blend-difference text-white"
+      className="group relative block font-mono text-label tracking-[0.16em] text-white uppercase mix-blend-difference"
     >
       {children}
       <span className="absolute -bottom-1 left-0 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:origin-left group-hover:scale-x-100" />

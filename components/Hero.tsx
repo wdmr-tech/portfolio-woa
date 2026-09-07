@@ -4,11 +4,13 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 import { easeOutExpo, maskUp, stagger } from "@/lib/animations";
+import { useLang } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
 const NAME_LINES = ["Wladimir", "Acevedo"];
 
 export default function Hero() {
+  const { t } = useLang();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -33,7 +35,7 @@ export default function Hero() {
           <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 font-mono text-label uppercase">
             <span className="mask-line">
               <motion.span variants={maskUp} className="block">
-                Portafolio — {site.role}
+                {t.hero.kicker} — {site.role}
               </motion.span>
             </span>
             <span className="mask-line">
@@ -61,9 +63,7 @@ export default function Hero() {
             transition={{ duration: 1, ease: easeOutExpo, delay: 0.9 }}
             className="text-lede max-w-xl md:col-span-6 md:col-start-1"
           >
-            Produzco videojuegos y construyo las interfaces con las que se juegan.
-            Unity, Unreal Engine y equipos que necesitan orden para llegar a la
-            build.
+            {t.hero.lede}
           </motion.p>
 
           <motion.div
@@ -77,7 +77,7 @@ export default function Hero() {
               data-cursor
               className="group inline-flex items-center gap-3"
             >
-              <span>Ver proyectos</span>
+              <span>{t.hero.cta}</span>
               <span aria-hidden className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-1">
                 ↓
               </span>

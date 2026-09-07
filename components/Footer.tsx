@@ -1,8 +1,13 @@
+"use client";
+
 import Marquee from "@/components/Marquee";
-import { MaskText, Reveal } from "@/components/Reveal";
+import { Reveal } from "@/components/Reveal";
+import { useLang } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
 export default function Footer() {
+  const { t } = useLang();
+
   return (
     <footer
       id="contacto"
@@ -10,17 +15,11 @@ export default function Footer() {
     >
       <div className="shell">
         <Reveal className="font-mono text-label uppercase opacity-60">
-          03 — Contacto
+          {t.footer.label}
         </Reveal>
-        <MaskText
-          as="h2"
-          className="text-headline mt-8 max-w-4xl font-medium"
-          lines={["Hablemos sobre"]}
-          delay={0.05}
-        />
       </div>
 
-      <Reveal className="mt-16 opacity-25" delay={0.1}>
+      <Reveal className="mt-12 opacity-25 sm:mt-16" delay={0.1}>
         <Marquee
           items={["Game Production", "UI Development", "Unity", "Unreal Engine"]}
         />
@@ -28,11 +27,13 @@ export default function Footer() {
 
       <div className="shell mt-20 grid gap-12 md:grid-cols-12">
         <Reveal className="md:col-span-8">
-          <p className="font-mono text-label uppercase opacity-60">Email</p>
+          <p className="font-mono text-label uppercase opacity-60">
+            {t.footer.emailLabel}
+          </p>
           <a
             href={`mailto:${site.email}`}
             data-cursor
-            data-cursor-label="Escribir"
+            data-cursor-label={t.footer.writeLabel}
             className="group mt-4 inline-block text-[clamp(1.5rem,4.5vw,3.5rem)] font-medium tracking-tight break-all"
           >
             {site.email}
@@ -41,13 +42,17 @@ export default function Footer() {
         </Reveal>
 
         <Reveal className="md:col-span-4" delay={0.1}>
-          <p className="font-mono text-label uppercase opacity-60">Redes</p>
+          <p className="font-mono text-label uppercase opacity-60">
+            {t.footer.linksLabel}
+          </p>
           <ul className="mt-4 flex flex-col gap-3">
             <li>
-              <FooterLink href={site.linkedin}>LinkedIn</FooterLink>
+              <FooterLink href={site.linkedin}>{t.footer.linkedin}</FooterLink>
             </li>
             <li>
-              <FooterLink href={`mailto:${site.email}`}>Correo directo</FooterLink>
+              <FooterLink href={`mailto:${site.email}`}>
+                {t.footer.directEmail}
+              </FooterLink>
             </li>
           </ul>
         </Reveal>

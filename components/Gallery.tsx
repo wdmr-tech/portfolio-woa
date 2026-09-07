@@ -13,6 +13,7 @@ import { useCallback, useEffect, useState } from "react";
 import ProjectCover from "@/components/ProjectCover";
 import { Reveal } from "@/components/Reveal";
 import { easeOutExpo } from "@/lib/animations";
+import { useLang } from "@/lib/i18n";
 
 type GalleryProps = {
   images: string[];
@@ -22,6 +23,7 @@ type GalleryProps = {
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export default function Gallery({ images, title }: GalleryProps) {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
@@ -60,7 +62,7 @@ export default function Gallery({ images, title }: GalleryProps) {
             <GalleryThumb
               src={image}
               title={title}
-              alt={`${title} — imagen ${index + 1}`}
+              alt={`${title} — ${t.lightbox.gallerySuffix} ${index + 1}`}
               index={index}
               total={images.length}
               onOpen={() => {
@@ -105,6 +107,7 @@ function GalleryThumb({
   total: number;
   onOpen: () => void;
 }) {
+  const { t } = useLang();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const x = useSpring(mx, { stiffness: 140, damping: 18, mass: 0.4 });
@@ -128,7 +131,7 @@ function GalleryThumb({
       onMouseMove={handleMove}
       onMouseLeave={reset}
       data-cursor
-      data-cursor-label="Ampliar"
+      data-cursor-label={t.lightbox.enlarge}
       className="group relative block aspect-4/3 w-full overflow-hidden bg-ink"
     >
       <motion.div
@@ -147,7 +150,7 @@ function GalleryThumb({
             {pad(index + 1)} / {pad(total)}
           </span>
           <span className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1">
-            Ampliar ↗
+            {t.lightbox.enlarge} ↗
           </span>
         </div>
       </div>
@@ -172,6 +175,7 @@ function Lightbox({
   onNav: (delta: number) => void;
   onJump: (index: number) => void;
 }) {
+  const { t } = useLang();
   const src = images[active];
 
   const handleDragEnd = (_: unknown, info: PanInfo) => {
@@ -192,7 +196,9 @@ function Lightbox({
         className="shell flex items-center justify-between gap-6 py-6 font-mono text-label text-paper/70 uppercase"
         onClick={(event) => event.stopPropagation()}
       >
-        <span className="truncate">{title} — galería</span>
+        <span className="truncate">
+          {title} — {t.lightbox.gallerySuffix}
+        </span>
         <span className="shrink-0">
           {pad(active + 1)} / {pad(images.length)}
         </span>
@@ -202,7 +208,7 @@ function Lightbox({
           data-cursor
           className="shrink-0 uppercase opacity-70 transition-opacity duration-300 hover:opacity-100"
         >
-          Cerrar ✕
+          {t.lightbox.close} ✕
         </button>
       </div>
 
@@ -214,7 +220,7 @@ function Lightbox({
           type="button"
           onClick={() => onNav(-1)}
           data-cursor
-          aria-label="Imagen anterior"
+          aria-label={t.lightbox.prev}
           className="absolute top-1/2 left-1 z-10 -translate-y-1/2 p-4 text-3xl text-paper/60 transition-all duration-300 hover:-translate-x-1 hover:text-paper sm:left-6"
         >
           ←
@@ -235,7 +241,7 @@ function Lightbox({
           >
             <Image
               src={src}
-              alt={`${title} — imagen ${active + 1}`}
+              alt={`${title} — ${active + 1}`}
               fill
               sizes="100vw"
               priority
@@ -249,7 +255,7 @@ function Lightbox({
           type="button"
           onClick={() => onNav(1)}
           data-cursor
-          aria-label="Imagen siguiente"
+          aria-label={t.lightbox.next}
           className="absolute top-1/2 right-1 z-10 -translate-y-1/2 p-4 text-3xl text-paper/60 transition-all duration-300 hover:translate-x-1 hover:text-paper sm:right-6"
         >
           →
@@ -266,7 +272,7 @@ function Lightbox({
             type="button"
             onClick={() => onJump(index)}
             data-cursor
-            aria-label={`Ir a la imagen ${index + 1}`}
+            aria-label={`${t.lightbox.goToPrefix} ${index + 1}`}
             className={`relative h-12 w-[4.5rem] overflow-hidden transition-opacity duration-300 ${
               index === active
                 ? "opacity-100 ring-1 ring-paper"

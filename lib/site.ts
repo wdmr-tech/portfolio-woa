@@ -9,9 +9,3 @@ export const site = {
   description:
     "Portafolio de Wladimir Acevedo — Game Producer & UI Developer. Producción de videojuegos e interfaz en Unity y Unreal Engine.",
 } as const;
-
-export const nav = [
-  { label: "Bio", href: "#bio" },
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Contacto", href: "#contacto" },
-] as const;

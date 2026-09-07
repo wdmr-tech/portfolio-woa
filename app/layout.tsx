@@ -4,6 +4,7 @@ import { JetBrains_Mono } from "next/font/google";
 import CustomCursor from "@/components/CustomCursor";
 import Nav from "@/components/Nav";
 import SmoothScroll from "@/components/SmoothScroll";
+import { LanguageProvider } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -53,11 +54,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="bg-paper text-ink flex min-h-full flex-col">
-        <SmoothScroll>
-          <CustomCursor />
-          <Nav />
-          {children}
-        </SmoothScroll>
+        <LanguageProvider>
+          <SmoothScroll>
+            <CustomCursor />
+            <Nav />
+            {children}
+          </SmoothScroll>
+        </LanguageProvider>
       </body>
     </html>
   );
