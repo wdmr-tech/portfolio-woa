@@ -2,9 +2,7 @@ import { MaskText, Reveal, RevealGroup } from "@/components/Reveal";
 import { fadeUp } from "@/lib/animations";
 
 const PARAGRAPHS = [
-  "Soy Wladimir Acevedo, Game Producer y UI Developer en Red Wine Interactive. Mi trabajo vive en dos lugares a la vez: la planificación que mantiene a un equipo avanzando y la interfaz que traduce un sistema complejo en algo que el jugador entiende sin pensarlo.",
-  "Como productor defino alcance, milestones y la comunicación entre disciplinas — arte, programación y narrativa — para que las decisiones se tomen a tiempo y las builds lleguen. Como UI developer implemento menús, HUD y flujos de navegación en Unity y Unreal Engine, cuidando jerarquía, feedback y el tono visual de cada proyecto.",
-  "Me interesa el punto donde producción y diseño se cruzan: entender por qué una pantalla no funciona suele ser un problema de proceso tanto como de layout.",
+  "Game Producer y UI Developer en Red Wine Interactive. Mi trabajo vive en dos lugares a la vez: la planificación que mantiene a un equipo avanzando y la interfaz que traduce un sistema complejo en algo que el jugador entiende sin pensarlo.",
 ];
 
 const CAPABILITIES = [
@@ -36,7 +34,7 @@ export default function Bio() {
           <MaskText
             as="h2"
             className="text-headline mt-8 font-medium"
-            lines={["Producción", "e interfaz"]}
+            lines={["Producción de videojuegos", "y desarrollo de UI"]}
             delay={0.05}
           />
         </div>

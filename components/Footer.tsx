@@ -15,7 +15,7 @@ export default function Footer() {
         <MaskText
           as="h2"
           className="text-headline mt-8 max-w-4xl font-medium"
-          lines={["Hablemos de", "tu próximo juego"]}
+          lines={["Hablemos"]}
           delay={0.05}
         />
       </div>
